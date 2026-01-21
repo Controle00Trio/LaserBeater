@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c9f8b6ed0296714f951ffdefd43ba45, type: 3}
   m_Name: PCOins 1
   m_EditorClassIdentifier: Assembly-CSharp::PCOins
+  _coinSprite: {fileID: 21300000, guid: 0e4049e63c85e774a949fdc8abae458e, type: 3}
   _pAmount: 50
   _cost: 100

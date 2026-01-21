@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using System.Collections;
 public class UIMAnager : MonoBehaviour
 {
     public static UIMAnager UiInstance;
@@ -32,6 +33,10 @@ public class UIMAnager : MonoBehaviour
     public TextMeshProUGUI _gameoverSpeedText;
     public TextMeshProUGUI _gameoverCoinsText;
 
+    [Header("Buy Messages")]
+    public GameObject _successfulBuyPanel;
+    public GameObject _unSuccessfulBuyPanel;
+
     bool _hasGameStarted;
     private void Awake()
     {
@@ -47,6 +52,8 @@ public class UIMAnager : MonoBehaviour
         GameManager.GameManagerInstance.OnGameHomePage += OnMenu;
         GameManager.GameManagerInstance.OnGameReStarted += GameStarted;
         GameManager.GameManagerInstance.OnStorePage += OnStore;
+        GameManager.GameManagerInstance.OnSucessfulBuy += OnSuccessfulBuy;
+        GameManager.GameManagerInstance.OnUnSucessfulBuy += OnUnSuccessfulBuy;
         OffAllPanel();
         _menuPanel.SetActive(true);
     }
@@ -55,14 +62,11 @@ public class UIMAnager : MonoBehaviour
         ResetCounters();
         _hasGameStarted = true;
         OffAllPanel();
+        OnGamePlay();
         _gameplayPanel.SetActive(true);
     }
     private void Update()
     {
-        if (_hasGameStarted)
-        {
-            OnGamePlay();
-        }
     }
     public void GameOver()
     {
@@ -78,8 +82,15 @@ public class UIMAnager : MonoBehaviour
 
     public void OnGamePlay()
     {
-        _gameplayDistanceText.text = ScoreManager.ScoreManagerInstance.GetDistance().ToString();
-        _gameplayspeedText.text = ScoreManager.ScoreManagerInstance.GetSpeed().ToString();
+        StartCoroutine(nameof(UpdateDistance));
+    }
+    IEnumerator UpdateDistance()
+    {
+        while (_hasGameStarted)
+        {
+            _gameplayDistanceText.text = ScoreManager.ScoreManagerInstance.GetDistance().ToString();
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     public void UpdateMenuCoins(int local,int premium)
@@ -131,5 +142,19 @@ public class UIMAnager : MonoBehaviour
         _gameoverSpeedText.text = 0.ToString();
         _gameplayDistanceText.text = 0.ToString();
         _gameplayspeedText.text = 0.ToString();
+    }
+    public void OnSuccessfulBuy()
+    {
+        StartCoroutine(ShowMessage(_successfulBuyPanel));
+    }
+    public void OnUnSuccessfulBuy()
+    {
+        StartCoroutine(ShowMessage(_unSuccessfulBuyPanel));
+    }
+    IEnumerator ShowMessage(GameObject obj)
+    {
+        obj.SetActive(true);
+        yield return new WaitForSeconds(.75f);
+        obj.SetActive(false);
     }
 }

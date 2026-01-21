@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     [Header("Score Values")]
     public float _distanceTravelled;
+    public float _timeTravelled;
     public float _currentSpeed;
     public int _coins;
 
@@ -17,7 +18,6 @@ public class ScoreManager : MonoBehaviour
     public float _speedToCoinsMultiplier = 0.5f;
 
     private float _startZ;
-    private float _lastZ;
 
     bool _hasGameStarted = false;
     private void Awake()
@@ -40,7 +40,6 @@ public class ScoreManager : MonoBehaviour
     public void GameStarted()
     {
         _startZ = _playerTransform.position.z;
-        _lastZ = _startZ;
         _hasGameStarted = true;
     }
     void Update()
@@ -48,22 +47,19 @@ public class ScoreManager : MonoBehaviour
         if(_hasGameStarted)
         {
             UpdateDistance();
-            UpdateSpeed();
-            UpdateCoins();
         }
 
     }
 
     void UpdateDistance()
     {
+        _timeTravelled += Time.deltaTime;
         _distanceTravelled = _playerTransform.position.z - _startZ;
     }
 
     void UpdateSpeed()
     {
-        float deltaZ = _playerTransform.position.z - _lastZ;
-        _currentSpeed = Mathf.Abs(deltaZ / Time.deltaTime);
-        _lastZ = _playerTransform.position.z;
+        _currentSpeed = Mathf.Abs(_distanceTravelled / _timeTravelled);
     }
 
     void UpdateCoins()
@@ -78,6 +74,8 @@ public class ScoreManager : MonoBehaviour
     public float GetSpeed() => _currentSpeed;
     public FinalScore GetFinalScore()
     {
+        UpdateSpeed();
+        UpdateCoins();
         Debug.Log(_coins);
         CoinManager.CoinManagerInstance.AddLocalCoins(_coins);
         return new FinalScore(_distanceTravelled,_currentSpeed, _coins);
@@ -85,6 +83,7 @@ public class ScoreManager : MonoBehaviour
     public void GameRestarted()
     {
         _distanceTravelled = 0;
+        _timeTravelled = 0;
         _currentSpeed = 0;
         _coins = 0;
     }

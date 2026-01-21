@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public event Action OnGameReStarted;
     public event Action OnGameHomePage;
     public event Action OnStorePage;
+    public event Action OnSucessfulBuy;
+    public event Action OnUnSucessfulBuy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -48,6 +50,14 @@ public class GameManager : MonoBehaviour
     public void StorePage()
     {
         OnStorePage?.Invoke();
+    }
+    public void SuccessfulBuy()
+    {
+        OnSucessfulBuy?.Invoke();
+    }
+    public void UnSuccessfulBuy()
+    {
+        OnUnSucessfulBuy?.Invoke();
     }
     public void Exit()
     {

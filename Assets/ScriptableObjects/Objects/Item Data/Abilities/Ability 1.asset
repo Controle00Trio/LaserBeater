@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83398c9a68abca46bb2b8288185385a, type: 3}
+  m_Name: Ability 1
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  ItemHiddenSprite: {fileID: 21300000, guid: 338fac29a59ddb547a7ccd9b05716b47, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 6864c70345f311b45a6f3e272f1db8bb, type: 3}
+  ItemName: Ability 2
+  ItemID: AB002
+  ItemTypes: 2
+  isPremium: 0
+  isPurchased: 0
+  canStack: 0
+  cost: 100
+  count: 0

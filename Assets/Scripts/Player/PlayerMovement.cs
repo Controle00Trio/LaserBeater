@@ -79,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     void SplineUpdate()
     {
         float normalisedtime = splineAnimate.NormalizedTime * 4;
+        splineOptions.transform.GetComponent<MeshRenderer>().material.SetFloat("_FillValue", splineAnimate.NormalizedTime);
         if (!hasSwitched && normalisedtime >= 3.99f)
         {
             Debug.Log("Switched");
@@ -108,9 +109,10 @@ public class PlayerMovement : MonoBehaviour
         splineAnimate.Pause();
         splineAnimate.NormalizedTime = 0f;
 
+        splineOptions = null;
         hasSwitched = false;
 
-        AssignNextSpline();
+        //AssignNextSpline();
         _hasGameStarted = true;
     }
 }

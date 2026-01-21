@@ -10,6 +10,7 @@ public class TilesManager : MonoBehaviour
     PlayerMovement _playerMovement;
 
     [Header("Tiles Generation Attributes")]
+    public Transform _tilesParent;
     public GameObject[] _tilesPrefabs;
     public float _tileSpawnOffset;
     public float _tilesOnScreen;
@@ -20,6 +21,7 @@ public class TilesManager : MonoBehaviour
     private Queue<GameObject> _moveSplinesPool = new Queue<GameObject>();
     public float _totalPoolSize;
     public List<GameObject> _activeTilesList = new List<GameObject>();
+    public List<GameObject> _resetTilesList = new List<GameObject>();
 
     private void Awake()
     {
@@ -85,10 +87,11 @@ public class TilesManager : MonoBehaviour
     {
         for (int i = 0; i < _totalPoolSize; i++)
         {
-            GameObject tile = Instantiate(_tilesPrefabs[i % _tilesPrefabs.Length]);
+            GameObject tile = Instantiate(_tilesPrefabs[i % _tilesPrefabs.Length], _tilesParent);
             tile.SetActive(false);
             _spawnTilesPool.Enqueue(tile);
             _moveSplinesPool.Enqueue(tile);
+            _resetTilesList.Add(tile);
         }
         for (int i = 0; i < _tilesOnScreen; i++)
         {
@@ -118,18 +121,18 @@ public class TilesManager : MonoBehaviour
 
         for (int i = 0; i < _totalPoolSize; i++)
         {
-            GameObject tile = _tilesPrefabs[i % _tilesPrefabs.Length];
-            GameObject newTile = Instantiate(tile);
-            newTile.SetActive(false);
+            GameObject tile = _resetTilesList[i % _tilesPrefabs.Length];
+            tile.SetActive(false);
 
-            _spawnTilesPool.Enqueue(newTile);
-            _moveSplinesPool.Enqueue(newTile);
+            _spawnTilesPool.Enqueue(tile);
+            _moveSplinesPool.Enqueue(tile);
         }
-
+        Debug.Log("Spawning");
         for (int i = 0; i < _tilesOnScreen; i++)
         {
             SpawnTile();
         }
+        Debug.Log("Spawned");
         _playerMovement.AssignNextSpline();
     }
 }

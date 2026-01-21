@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83398c9a68abca46bb2b8288185385a, type: 3}
+  m_Name: Skin 4
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  ItemHiddenSprite: {fileID: 21300000, guid: a25d2708a86fe2e4ba80c713fba535ea, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 5fffe9dd9126e0d4993ceefa19f42e0f, type: 3}
+  ItemName: Skin 4
+  ItemID: Sk004
+  ItemTypes: 1
+  isPremium: 0
+  isPurchased: 0
+  canStack: 0
+  cost: 10
+  count: 0
